@@ -87,67 +87,182 @@
 
                                     <h5></h5>
                                     <p>
-                                        
+<br> The simplest way to pass data from a parent to a child in a React Application is by passing it on to the child's props. But an issue arises when a deeply nested child requires data from a component higher up in the tree. If we pass on the data through the props, every single one of the children would be required to accept the data and pass it on to its child, leading to prop drilling, a terrible practice in the world of React.
+<br> 
+<br> To solve the prop drilling issue, we have State Management Solutions like Context API and Redux. But which one of them is best suited for your application? Today we are going to answer this age-old question!
+<br> 
+<br> What is the Context API?
+<br> Let's check the official documentation:
+<br> 
+<br> In a typical React application, data is passed top-down (parent to child) via props, but such usage can be cumbersome for certain types of props (e.g. locale preference, UI theme) that are required by many components within an application. Context provides a way to share values like these between components without having to explicitly pass a prop through every level of the tree.
+
+<br> Context API is a built-in React tool that does not influence the final bundle size, and is integrated by design.
+<br> 
+<br> To use the Context API, you have to:
+<br> <span class="code-style">
+
+    <br> Create the Context
+    <br> const Context = createContext(MockData);
+    <br> Create a Provider for the Context
+    <br> const Parent = () => {
+        <br>     return (
+            <br>         &lt ontext.Provider value={initialValue} &gt
+            <br>             &lt Children/ &gt
+            <br>             &lt /Context.Provider &gt
+            <br>     )
+            <br> }
+            <br> Consume the data in the Context
+            <br> const Child = () => {
+                <br>     const contextData = useContext(Context);
+                <br>     // use the data
+                <br>     // ...
+                <br> }
+            </span>
+
+<br> So What is Redux?
+<br> Of course, let's head over to the documentation:
+<br> 
+<br> Redux is a predictable state container for JavaScript apps.
+<br> 
+<br> It helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test. On top of that, it provides a great developer experience, such as live code editing combined with a time-traveling debugger.
+<br> 
+<br> You can use Redux together with React, or with any other view library. It is tiny (2kB, including dependencies), but has a large ecosystem of addons available.
+<br> 
+<br> Redux is an Open Source Library which provides a central store, and actions to modify the store. It can be used with any project using JavaScript or TypeScript, but since we are comparing it to Context API, so we will stick to React-based Applications.
+<br> 
+<br> To use Redux you need to:
+<br> 
+<br> Create a Reducer
+<span class="code-style">
+
+    <br> import { createSlice } from "@reduxjs/toolkit";
+    <br> 
+    <br> export const slice = createSlice({
+        <br>     name: "slice-name",
+        <br>     initialState: {
+            <br>         // ...
+<br>     },
+<br>     reducers: {
+    <br>         func01: (state) => {
+        <br>             // ...
+        <br>         },
+        <br>     }
+        <br> });
+        <br> 
+    </span>
+
+<br> export const { func01 } = slice.actions;
+<br> export default slice.reducer;
+<br> Configure the Store
+
+<span class="code-style">
+
+    <br> import { configureStore } from "@reduxjs/toolkit";
+    <br> import reducer from "./reducer";
+    <br> 
+    <br> export default configureStore({
+        <br>     reducer: {
+            <br>         reducer: reducer
+            <br>     }
+            <br> });
+        </span>
+<br> Make the Store available for data consumption
+<span class="code-style">
+
+    <br> import React from 'react';
+    <br> import ReactDOM from 'react-dom';
+    <br> import { Provider } from 'react-redux';
+    <br> import App from './App.jsx'
+    <br> import store from './store';
+    <br> 
+    <br> ReactDOM.render(
+        <br>     &lt Provider store={store} &gt
+        <br>     &lt App / &gt
+        <br>     &lt /Provider &gt,
+        <br>     document.getElementById("root")
+        <br> );
+    </span>
+
+<br> Use State or Dispatch Actions
+<span class="code-style">
+
+    <br> import { useSelector, useDispatch } from 'react-redux';
+    <br> import { func01 } from './redux/reducer';
+    <br> 
+    <br> const Component = () => {
+        <br>     const reducerState = useSelector((state) => state.reducer);
+        <br>     const dispatch = useDispatch();
+        <br>     const doSomething = () = > dispatch(func01)  
+        <br>     return (
+            <br>         <>
+            <br>             {/* ... */}
+            <br>         </>
+            <br>     );
+            <br> }
+            <br> export default Component;
+        </span>
+
+<br> That's all Phew! As you can see, Redux requires way more work to get it set up.
                                     </p>
 
                                 </div>
                             </div>
                         </div>
 
-                            <div class="col-lg-4">
-                                <div class="widget-sidebar">
-                                        <div class="sidebar-widgets">
-                                            <h5 class="inner-header-title">Recent Posts</h5>
-                                            <div class="recent-post-item clearfix">
-                                                <div class="recent-post-img mr-3">
-                                                    <a href="blog-single.html">
-                                                        <img class="img-fluid" src="img/blog/recent-blog-img-1.jpg" alt="Recent Img">
-                                                    </a>
-                                                </div>
-                                                <div class="recent-post-body">
-                                                    <a href="blog-single.html">
-                                                        <h6 class="recent-post-title">A Successful Software Developers</h6>
-                                                    </a>
-                                                    <p class="recent-post-date"><i class="far fa-calendar-alt"></i>20 November</p>
-                                                </div>
+                        <div class="col-lg-4">
+                            <div class="widget-sidebar">
+                                    <div class="sidebar-widgets">
+                                        <h5 class="inner-header-title">Recent Posts</h5>
+                                        <div class="recent-post-item clearfix">
+                                            <div class="recent-post-img mr-3">
+                                                <a href="blog-single.html">
+                                                    <img class="img-fluid" src="img/blog/recent-blog-img-1.jpg" alt="Recent Img">
+                                                </a>
                                             </div>
-
-                                            <div class="recent-post-item clearfix">
-                                                <div class="recent-post-img mr-3">
-                                                    <a href="blog-single-3.html">
-                                                        <img class="img-fluid" src="img/blog/recent-blog-img-3.jpg" alt="Recent Img">
-                                                    </a>
-                                                </div>
-                                                <div class="recent-post-body">
-                                                    <a href="blog-single-3.html">
-                                                        <h6 class="recent-post-title">Angular vs. React vs. Vue.js: Comparing performance</h6>
-                                                    </a>
-                                                    <span class="recent-post-date"><i class="far fa-calendar-alt"></i>26 October</span>
-                                                </div>
+                                            <div class="recent-post-body">
+                                                <a href="blog-single.html">
+                                                    <h6 class="recent-post-title">A Successful Software Developers</h6>
+                                                </a>
+                                                <p class="recent-post-date"><i class="far fa-calendar-alt"></i>20 November</p>
                                             </div>
-
-                                            <div class="recent-post-item clearfix">
-                                                <div class="recent-post-img mr-3">
-                                                    <a href="blog-single-2.html">
-                                                        <img class="img-fluid" src="img/blog/recent-blog-img-2.jpg" alt="Recent Img">
-                                                    </a>
-                                                </div>
-                                                <div class="recent-post-body">
-                                                    <a href="blog-single-2.html">
-                                                        <h6 class="recent-post-title">The Future of ReactJS Developers</h6>
-                                                    </a>
-                                                    <p class="recent-post-date"><i class="far fa-calendar-alt"></i>17 August </p>
-                                                </div>
-                                            </div>
-                                            
-                                            
                                         </div>
-                                        <h5 class="inner-header-title"></h5>
-                                        <ul class="sidebar-tags clearfix">
-                                            
-                                        </ul>
-                                    </div> 
-                            </div>
+
+                                        <div class="recent-post-item clearfix">
+                                            <div class="recent-post-img mr-3">
+                                                <a href="blog-single-2.html">
+                                                    <img class="img-fluid" src="img/blog/recent-blog-img-3.jpg" alt="Recent Img">
+                                                </a>
+                                            </div>
+                                            <div class="recent-post-body">
+                                                <a href="blog-single-2.html">
+                                                    <h6 class="recent-post-title">Redux vs Context API: When to use them</h6>
+                                                </a>
+                                                <span class="recent-post-date"><i class="far fa-calendar-alt"></i>26 October</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="recent-post-item clearfix">
+                                            <div class="recent-post-img mr-3">
+                                                <a href="blog-single-3.html">
+                                                    <img class="img-fluid" src="img/blog/recent-blog-img-2.jpg" alt="Recent Img">
+                                                </a>
+                                            </div>
+                                            <div class="recent-post-body">
+                                                <a href="blog-single-3.html">
+                                                    <h6 class="recent-post-title">The Future of ReactJS Developers</h6>
+                                                </a>
+                                                <p class="recent-post-date"><i class="far fa-calendar-alt"></i>17 August </p>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    <h5 class="inner-header-title"></h5>
+                                    <ul class="sidebar-tags clearfix">
+                                        
+                                    </ul>
+                                </div> 
+                        </div>
                         </div>
                     </div>
                 </div>
