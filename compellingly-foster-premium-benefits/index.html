@@ -1,0 +1,1629 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>All we need is graph, graph is all we need - DEV Community</title>
+      <meta name="last-updated" content="2021-11-21 18:37:05 UTC">
+      <meta name="user-signed-in" content="false">
+      <meta name="head-cached-at" content="1637519825">
+        <!-- Experimental web monetization payment pointer for micropayments -->
+        <!-- It lets readers make micropayments to websites they visit. -->
+        <!-- This is step 1: Get live in production to test for platform-wide payment pointer. -->
+        <!-- Step 2: Allow authors to set their payment pointer so they can directly monetize their content based on visitors. -->
+        <!-- Step 3: Enable further functionality based on what we learn from this experimentation and how the ecosystem evolves. -->
+        <meta name="monetization" content="$ilp.uphold.com/24HhrUGG7ekn">
+      <meta name="environment" content="production">
+      <link rel="stylesheet" media="all" href="https://dev.to/assets/minimal-10671231be61712f9488bb0fc1a9535f49991e3807ff7887a75192ec91376748.css" id="main-minimal-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/views-fa0bf035db8db8bf8b398dc8845d2e9f069464bbb237eadb57d526d246207bbd.css" id="main-views-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/crayons-d6e95a71c4844d3b1c78f7b84da3367cb170898c3831e24bf0f27696eecdf411.css" id="main-crayons-stylesheet" />
+
+        <script src="https://dev.to/packs/js/runtime~base-fad1dd56a06426226d59.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/base-0bbd99008b613b75f0c5.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~Search-0ddc51a453b8c3e8f9d2.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/0-deb4a3d66346407460bf.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/2-feac54b0d5293fd89992.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/Search-9cd48152d4505a7c1795.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~runtimeBanner-d59816f20cd425b4e5c0.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtimeBanner-45a26cbd2d92357394b5.chunk.js" defer="defer"></script>
+      <script src="https://dev.to/assets/base-c6dcbebe4cb14cde7ffba73efb9d4bed45204de3b3767313ad3a5e16499425ee.js" defer="defer"></script>
+      
+    <link rel="canonical" href="https://dev.to/danielnetzer/all-we-need-is-graph-graph-is-all-we-need-11k8" />
+    <meta name="description" content="Introducing RxZu, Typescripted graphs engine.           First thing first, what is RxZu?   RxZu is a... Tagged with javascript, angular, react, vue.">
+    <meta name="keywords" content="javascript, angular, react, vue, software, coding, development, engineering, inclusive, community">
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://dev.to/danielnetzer/all-we-need-is-graph-graph-is-all-we-need-11k8" />
+    <meta property="og:title" content="All we need is graph, graph is all we need" />
+    <meta property="og:description" content="Introducing RxZu, Typescripted graphs engine.           First thing first, what is RxZu?   RxZu is a..." />
+    <meta property="og:site_name" content="DEV Community" />
+    <meta name="twitter:site" content="@thepracticaldev">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="All we need is graph, graph is all we need">
+    <meta name="twitter:description" content="Introducing RxZu, Typescripted graphs engine.           First thing first, what is RxZu?   RxZu is a...">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:widgets:new-embed-design" content="on">
+    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+      <meta property="og:image" content="https://dev.to/social_previews/article/567971.png" />
+      <meta name="twitter:image:src" content="https://dev.to/social_previews/article/567971.png">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+      <link rel="shortcut icon" type="image/x-icon" href="https://res.cloudinary.com/practicaldev/image/fetch/s--E8ak4Hr1--/c_limit,f_auto,fl_progressive,q_auto,w_32/https://dev-to.s3.us-east-2.amazonaws.com/favicon.ico" />
+      <link rel="apple-touch-icon" href="https://res.cloudinary.com/practicaldev/image/fetch/s--gDM0_LTS--/c_limit,f_png,fl_progressive,q_80,w_180/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/practicaldev/image/fetch/s--l0c3Kmql--/c_limit,f_png,fl_progressive,q_80,w_152/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/practicaldev/image/fetch/s--gDM0_LTS--/c_limit,f_png,fl_progressive,q_80,w_180/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/practicaldev/image/fetch/s--2ecYCSjC--/c_limit,f_png,fl_progressive,q_80,w_167/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link href="https://res.cloudinary.com/practicaldev/image/fetch/s--t7tVouP9--/c_limit,f_png,fl_progressive,q_80,w_192/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" rel="icon" sizes="192x192" />
+      <link href="https://res.cloudinary.com/practicaldev/image/fetch/s--lrmEcD2H--/c_limit,f_png,fl_progressive,q_80,w_128/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" rel="icon" sizes="128x128" />
+      <meta name="apple-mobile-web-app-title" content="dev.to">
+      <meta name="application-name" content="dev.to">
+      <meta name="theme-color" content="#000000" />
+      <link rel="search" href="https://dev.to/open-search.xml" type="application/opensearchdescription+xml" title="DEV Community" />
+
+      <meta property="forem:name" content="DEV Community" />
+      <meta property="forem:logo" content="https://res.cloudinary.com/practicaldev/image/fetch/s--PFPhV65b--/c_limit,f_png,fl_progressive,q_80,w_512/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" />
+      <meta property="forem:domain" content="dev.to" />
+  </head>
+      <body
+        data-user-status="logged-out"
+        class="sans-serif-article-body default-header"
+        data-locale="en"
+        data-honeybadger-key="a45862f6"
+        data-deployed-at="2021-11-19T19:42:05Z"
+        data-latest-commit-id="5a5a0a723a9bec19c2e99a449ce5e1b4636c1f6e"
+        data-ga-tracking="UA-71991109-1">
+        <link rel="stylesheet" media="all" href="https://dev.to/assets/minimal-10671231be61712f9488bb0fc1a9535f49991e3807ff7887a75192ec91376748.css" id="secondary-minimal-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/views-fa0bf035db8db8bf8b398dc8845d2e9f069464bbb237eadb57d526d246207bbd.css" id="secondary-views-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/crayons-d6e95a71c4844d3b1c78f7b84da3367cb170898c3831e24bf0f27696eecdf411.css" id="secondary-crayons-stylesheet" />
+
+        <div id="body-styles">
+          <style>
+            :root {
+              --accent-brand: #3b49df;
+              --accent-brand-darker: #323ebe;
+              --accent-brand-lighter: #4150f5;
+              --accent-brand-a10: rgba(59, 73, 223, 0.10);
+            }
+          </style>
+        </div>
+        <div id="audiocontent" data-podcast="">
+          
+        </div>
+        <div class="navigation-progress" id="navigation-progress"></div>
+
+<div class="hamburger">
+  <div class="hamburger__content">
+    <header class="hamburger__content__header">
+      <h2 class="fs-l fw-bold flex-1 break-word lh-tight">DEV Community</h2>
+
+      <button class="crayons-btn crayons-btn--ghost crayons-btn--icon-rounded js-hamburger-trigger shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="are0fj7ukftqmcdxp88v3wclc0qvcvok" class="crayons-icon"><title id="are0fj7ukftqmcdxp88v3wclc0qvcvok">Close</title><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636l4.95 4.95z"></path></svg>
+
+      </button>
+    </header>
+
+    <div class="p-2">
+      <div class="crayons-card crayons-card--secondary p-4">
+  <h2 class="fs-l fw-bold mb-2">
+    <a href="/">DEV Community</a> is a community of 746,017 amazing developers
+
+  </h2>
+  <p class="color-base-70 mb-4">
+      We&#39;re a place where coders share, stay up-to-date and grow their careers.
+  </p>
+  <div>
+    <a href="/enter?state=new-user" class="crayons-btn w-100 mb-2" aria-label="Create new account">Create account</a>
+    <a href="/enter" class="crayons-btn crayons-btn--ghost-brand w-100" aria-label="Log in">Log in</a>
+  </div>
+</div>
+
+      
+<nav class="mb-6 mt-4" id="main-navigation" aria-label="DEV Community">
+  <ul class="default-navigation-links sidebar-navigation-links spec-sidebar-navigation-links">
+    <li>
+      <a href="/" class="crayons-link crayons-link--block">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24" aria-hidden="true" class="crayons-icon crayons-icon--default">
+    <g class="nc-icon-wrapper">
+        <path fill="#A0041E" d="M13.344 18.702h-2a.5.5 0 01-.5-.5v-7a.5.5 0 01.5-.5h2a.5.5 0 01.5.5v7a.5.5 0 01-.5.5z"></path>
+        <path fill="#FFE8B6" d="M9 20L22 7l13 13v17H9z"></path>
+        <path fill="#FFCC4D" d="M22 20h1v16h-1z"></path>
+        <path fill="#66757F" d="M35 21a.997.997 0 01-.707-.293L22 8.414 9.707 20.707a1 1 0 11-1.414-1.414l13-13a.999.999 0 011.414 0l13 13A.999.999 0 0135 21z"></path>
+        <path fill="#66757F" d="M22 21a.999.999 0 01-.707-1.707l6.5-6.5a1 1 0 111.414 1.414l-6.5 6.5A.997.997 0 0122 21z"></path>
+        <path fill="#C1694F" d="M14 30h4v6h-4z"></path>
+        <path fill="#55ACEE" d="M14 21h4v4h-4zm12.5 0h4v4h-4zm0 9h4v4h-4z"></path>
+        <path fill="#5C913B" d="M37.5 37.5A1.5 1.5 0 0136 39H8a1.5 1.5 0 010-3h28a1.5 1.5 0 011.5 1.5z"></path>
+    </g>
+</svg>
+
+        Home
+      </a>
+    </li>
+    <li>
+        <a href="/enter" class="crayons-link crayons-link--block fw-bold">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24" aria-hidden="true" class="crayons-icon crayons-icon--default">
+    <g class="nc-icon-wrapper">
+        <path fill="#EF9645" d="M21 22s-6.031 5.274-7.74 6.832c-1.323 1.203.88 3.498 2.135 2.452 3.333-2.785 6.493-4.85 6.493-4.85l.367.526c-1.309.79-4.693 2.858-6.449 4.438-1.324 1.19.767 3.553 2.093 2.365 1.822-1.634 5.995-4.565 5.995-4.565l.368.384c-1.08.679-2.772 1.94-4.985 3.958-1.332 1.215.619 2.485 1.764 1.534 3.116-2.586 3.232-4.383 6.661-5.85C32.935 26.986 21 22 21 22z"></path>
+        <path fill="#FFCC4D" d="M33.979 12.836c.881-.438 1.653.144 2.106 1.053.448.911 2.532 5.015 2.953 5.869.425.852.191 2.103-.719 2.553-.911.453-2.234 1.054-3.092 2.512-.465.794-2.396 2.887-7.629 5.129-3.427 1.462-6.165 3.938-7.261 4.8-.886.698-2.673-.637-1.343-1.85 2.214-2.02 3.906-3.281 4.985-3.958l-.368-.386s-4.381 3.056-6.238 4.65c-1.261 1.085-2.938-.953-1.613-2.142 1.757-1.58 4.902-3.954 6.211-4.744l-.366-.529s-3.43 2.231-6.765 5.02c-1.113.93-2.847-1.159-1.525-2.364 1.71-1.555 5.043-4.343 7.093-5.499l-.196-.609s-3.218 1.805-5.996 4.494c-.994.961-2.974-.818-1.525-2.293 3.462-3.522 7.958-5.609 9.154-6.413 1.606-1.08 2.451-1.754 1.606-2.133-1.274-.573-3.396-2.582-4.21-4.21-1.053-2.106.44-3.77 2.105-2.106 1.053 1.053 3.159 3.158 5.263 3.158 2.829 0 3.262 1.053 5.264 1.053 1.054-.002 2.106-1.055 2.106-1.055"></path>
+        <path fill="#EF9645" d="M29.048 19.167c-.334.001-1.439-.15-2.684-.725-1.073-.494-1.905-1.39-2.597-2.142.039.161-.065.354-.283.58.681.792 1.723 1.696 2.654 2.146 1.082.525 2.315.79 2.871.767.572-.024.385-.622.039-.626zm2.167 8.58c-2.264-1.054-4.062-1.934-.974-.66 1.277.525 3.194-2.06 1.315-2.917C27.774 22.444 16 16 16 16s-6.368 7.437-5.58 7.914c.789.474 1.118 3.849 5.665 6.818 4.298 2.808 6.975 4.015 7.981 4.518 2.107 1.053 3.477-1.678 1.833-2.412-2.833-1.266-2.734-1.343 1.418.382 1.537.64 2.829-2.25 1.205-2.981-2.422-1.089-2.64-1.221 1.239.527 1.435.643 3.073-2.264 1.454-3.019z"></path>
+        <path fill="#FFDC5D" d="M11.09 13.278a1.808 1.808 0 00-2.485.615c-.525.871-2.828 4.683-3.319 5.5-.492.816-.364 2.079.506 2.604.87.526 2.447 1.477 3.236 1.952.789.477 4.011 4.477 8.662 7.279 4.648 2.808 6.366 3.286 7.412 3.697 1.05.41 2.437-1.683.793-2.416-2.837-1.268-4.836-2.438-5.859-3.205l.318-.585s2.837 2.12 6.987 3.848c1.537.64 2.79-1.754 1.167-2.487-2.423-1.089-5.412-2.894-6.651-3.79l.346-.571s3.946 2.494 7.825 4.242c1.431.645 2.632-1.786 1.013-2.542-2.26-1.054-5.448-2.955-7.394-4.277l.338-.5s3.615 2.551 6.705 3.823c1.277.528 2.78-1.861.899-2.721C27.81 22.019 23.525 19 22.401 18.1c-.918-.737-1.181-2.413 1.052-3.158 3.158-1.053 4.211-3.158 4.211-4.211 0-1.489-1.376-2.146-2.104-1.053-2.107 3.158-3.166 2.082-5.263 3.158-2.514 1.291-5.466 2.662-7.179 1.628-.733-.441-2.028-1.186-2.028-1.186"></path>
+        <path fill="#FFCC4D" d="M22.948 15.721l5.426-2.712a8.282 8.282 0 00-1.763-.172c-2.104 0-4.21-2.105-5.263-3.158-1.665-1.664-3.158 0-2.105 2.106.715 1.428 2.433 3.148 3.705 3.936z"></path>
+    </g>
+</svg>
+
+          Sign In/Up
+        </a>
+    </li>
+      
+        <li>
+    <a href="/listings" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g class="nc-icon-wrapper">
+        <path fill="#FFD983" d="M36 4H14a4 4 0 00-4 4v24H8a4 4 0 000 8h24a4 4 0 004-4V12a4 4 0 000-8z"/>
+        <path fill="#E39F3D" d="M12 14h24v-2H14l-2-1z"/>
+        <path fill="#FFE8B6" d="M14 4a4 4 0 00-4 4v24.555A3.955 3.955 0 008 32a4 4 0 104 4V11.445c.59.344 1.268.555 2 .555a4 4 0 000-8z"/>
+        <path fill="#C1694F" d="M16 8a2 2 0 11-4.001-.001A2 2 0 0116 8m-6 28a2 2 0 11-4.001-.001A2 2 0 0110 36m24-17a1 1 0 01-1 1H15a1 1 0 010-2h18a1 1 0 011 1m0 4a1 1 0 01-1 1H15a1 1 0 110-2h18a1 1 0 011 1m0 4a1 1 0 01-1 1H15a1 1 0 110-2h18a1 1 0 011 1m0 4a1 1 0 01-1 1H15a1 1 0 110-2h18a1 1 0 011 1"/>
+    </g>
+</svg>
+
+      </span>
+      Listings
+    </a>
+  </li>
+
+        <li>
+    <a href="/pod" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g class="nc-icon-wrapper">
+        <path fill="#292F33" d="M10 19h24v2H10zm15 15c0 2.208-.792 4-3 4-2.209 0-3-1.792-3-4s.791-2 3-2c2.208 0 3-.208 3 2z"/>
+        <path fill="#66757F" d="M22 35c-6.627 0-10 1.343-10 3v2h20v-2c0-1.657-3.373-3-10-3z"/>
+        <path fill="#99AAB5" d="M22 4a9 9 0 00-9 9v7h18v-7a9 9 0 00-9-9z"/>
+        <g fill="#292F33" transform="translate(4 4)">
+            <circle cx="15.5" cy="2.5" r="1.5"/>
+            <circle cx="20.5" cy="2.5" r="1.5"/>
+            <circle cx="17.5" cy="6.5" r="1.5"/>
+            <circle cx="22.5" cy="6.5" r="1.5"/>
+            <circle cx="12.5" cy="6.5" r="1.5"/>
+            <circle cx="15.5" cy="10.5" r="1.5"/>
+            <circle cx="10.5" cy="10.5" r="1.5"/>
+            <circle cx="20.5" cy="10.5" r="1.5"/>
+            <circle cx="25.5" cy="10.5" r="1.5"/>
+            <circle cx="17.5" cy="14.5" r="1.5"/>
+            <circle cx="22.5" cy="14.5" r="1.5"/>
+            <circle cx="12.5" cy="14.5" r="1.5"/>
+        </g>
+        <path fill="#66757F" d="M13 19.062V21c0 4.971 4.029 9 9 9s9-4.029 9-9v-1.938H13z"/>
+        <path fill="#66757F" d="M34 18a1 1 0 00-1 1v2c0 6.074-4.925 11-11 11s-11-4.926-11-11v-2a1 1 0 00-2 0v2c0 7.18 5.82 13 13 13s13-5.82 13-13v-2a1 1 0 00-1-1z"/>
+    </g>
+</svg>
+
+      </span>
+      Podcasts
+    </a>
+  </li>
+
+        <li>
+    <a href="/videos" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g transform="translate(4 4)">
+        <path fill="#31373D" d="M34.074 18l-4.832 3H28v-4c0-.088-.02-.169-.026-.256C31.436 15.864 34 12.735 34 9a8 8 0 00-16.001 0c0 1.463.412 2.822 1.099 4H14.92c.047-.328.08-.66.08-1a7 7 0 10-14 0 6.995 6.995 0 004 6.317V29a4 4 0 004 4h15a4 4 0 004-4v-3h1.242l4.832 3H35V18h-.926zM28.727 3.977a5.713 5.713 0 012.984 4.961L28.18 8.35a2.276 2.276 0 00-.583-.982l1.13-3.391zm-.9 6.342l3.552.592a5.713 5.713 0 01-4.214 3.669 3.985 3.985 0 00-1.392-1.148l.625-2.19a2.425 2.425 0 001.429-.923zM26 3.285c.282 0 .557.027.828.067l-1.131 3.392c-.404.054-.772.21-1.081.446L21.42 5.592A5.703 5.703 0 0126 3.285zM20.285 9c0-.563.085-1.106.236-1.62l3.194 1.597-.002.023c0 .657.313 1.245.771 1.662L23.816 13h-1.871a5.665 5.665 0 01-1.66-4zm-9.088-.385A4.64 4.64 0 0112.667 12c0 .344-.043.677-.113 1H10.1c.145-.304.233-.641.233-1a2.32 2.32 0 00-.392-1.292l1.256-2.093zM8 7.333c.519 0 1.01.105 1.476.261L8.22 9.688c-.073-.007-.145-.022-.22-.022a2.32 2.32 0 00-1.292.392L4.615 8.803A4.64 4.64 0 018 7.333zM3.333 12c0-.519.105-1.01.261-1.477l2.095 1.257c-.007.073-.022.144-.022.22 0 .75.36 1.41.91 1.837a3.987 3.987 0 00-1.353 1.895C4.083 14.881 3.333 13.533 3.333 12z"/>
+        <circle fill="#8899A6" cx="24" cy="19" r="2"/>
+        <circle fill="#8899A6" cx="9" cy="19" r="2"/>
+        <path fill="#8899A6" d="M24 27a2 2 0 00-2-2H11a2 2 0 00-2 2v6a2 2 0 002 2h11a2 2 0 002-2v-6z"/>
+    </g>
+</svg>
+
+      </span>
+      Videos
+    </a>
+  </li>
+
+        <li>
+    <a href="/tags" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g class="nc-icon-wrapper">
+        <path fill="#FFD983" d="M36.017 24.181L21.345 9.746C20.687 9.087 19.823 9 18.96 9H8.883C7.029 9 6 10.029 6 11.883v10.082c0 .861.089 1.723.746 2.38L21.3 39.017a3.287 3.287 0 004.688 0l10.059-10.088c1.31-1.312 1.28-3.438-.03-4.748zm-23.596-8.76a1.497 1.497 0 11-2.118-2.117 1.497 1.497 0 012.118 2.117z"/>
+        <path fill="#D99E82" d="M13.952 11.772a3.66 3.66 0 00-5.179 0 3.663 3.663 0 105.18 5.18 3.664 3.664 0 00-.001-5.18zm-1.53 3.65a1.499 1.499 0 11-2.119-2.12 1.499 1.499 0 012.119 2.12z"/>
+        <path fill="#C1694F" d="M12.507 14.501a1 1 0 11-1.415-1.414l8.485-8.485a1 1 0 111.415 1.414l-8.485 8.485z"/>
+    </g>
+</svg>
+
+      </span>
+      Tags
+    </a>
+  </li>
+
+        <li>
+    <a href="/faq" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g class="nc-icon-wrapper">
+        <path fill="#FFD983" d="M33 15.06c0 6.439-5 7.439-5 13.44 0 3.098-3.123 3.359-5.5 3.359-2.053 0-6.586-.779-6.586-3.361C15.914 22.5 11 21.5 11 15.06c0-6.031 5.285-10.92 11.083-10.92C27.883 4.14 33 9.029 33 15.06z"/>
+        <path fill="#CCD6DD" d="M26.167 36.5c0 .828-2.234 2.5-4.167 2.5-1.933 0-4.167-1.672-4.167-2.5 0-.828 2.233-.5 4.167-.5 1.933 0 4.167-.328 4.167.5z"/>
+        <path fill="#FFCC4D" d="M26.707 14.293a.999.999 0 00-1.414 0L22 17.586l-3.293-3.293a1 1 0 10-1.414 1.414L21 19.414V30a1 1 0 102 0V19.414l3.707-3.707a.999.999 0 000-1.414z"/>
+        <path fill="#99AAB5" d="M28 35a2 2 0 01-2 2h-8a2 2 0 01-2-2v-6h12v6z"/>
+        <path fill="#CCD6DD" d="M15.999 36a1 1 0 01-.163-1.986l12-2a.994.994 0 011.15.822.999.999 0 01-.822 1.15l-12 2a.927.927 0 01-.165.014zm0-4a1 1 0 01-.163-1.986l12-2a.995.995 0 011.15.822.999.999 0 01-.822 1.15l-12 2a.927.927 0 01-.165.014z"/>
+    </g>
+</svg>
+
+      </span>
+      FAQ
+    </a>
+  </li>
+
+        <li>
+    <a href="https://shop.dev.to/" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g class="nc-icon-wrapper">
+        <path fill="#F4900C" d="M15 4a8 8 0 00-8 8v8h2v-8a6 6 0 0112 0v8h2v-8a8 8 0 00-8-8z"/>
+        <path fill="#DD2E44" d="M5 12l2 2 2-2 2 2 2-2 2 2 2-2 2 2 2-2 2 2 2-2v23H5z"/>
+        <path fill="#FFCC4D" d="M29 9a8 8 0 00-8 8v8h2v-8a6 6 0 0112 0v8h2v-8a8 8 0 00-8-8z"/>
+        <path fill="#744EAA" d="M19 17l2 2 2-2 2 2 2-2 2 2 2-2 2 2 2-2 2 2 2-2v23H19z"/>
+    </g>
+</svg>
+
+      </span>
+      DEV Shop
+    </a>
+  </li>
+
+        <li>
+    <a href="/sponsorships" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <path fill="#DD2E44" d="M39.885 15.833c0-5.45-4.418-9.868-9.867-9.868-3.308 0-6.227 1.633-8.018 4.129-1.791-2.496-4.71-4.129-8.017-4.129-5.45 0-9.868 4.417-9.868 9.868 0 .772.098 1.52.266 2.241C5.751 26.587 15.216 35.568 22 38.034c6.783-2.466 16.249-11.447 17.617-19.959.17-.721.268-1.469.268-2.242z"/>
+</svg>
+
+      </span>
+      Sponsors
+    </a>
+  </li>
+
+        <li>
+    <a href="/about" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg viewBox="0 0 235 234" xmlns="http://www.w3.org/2000/svg" class="rainbow-logo" preserveAspectRatio="xMinYMin meet">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#88AEDC" d="M234.04 175.67l-75.69 58.28h47.18L234.04 212z"/>
+        <path d="M234.04 140.06l-121.93 93.89h.02l121.91-93.87zM133.25.95L.04 103.51v.02L133.27.95z"/>
+        <path fill="#F58F8E" fill-rule="nonzero" d="M.04.95v30.16L39.21.95z"/>
+        <path fill="#FEE18A" fill-rule="nonzero" d="M39.21.95L.04 31.11v35.9L85.84.95z"/>
+        <path fill="#F3F095" fill-rule="nonzero" d="M85.84.95L.04 67.01v36.5L133.25.95z"/>
+        <path fill="#55C1AE" fill-rule="nonzero" d="M133.27.95L.04 103.53v35.59L179.49.95z"/>
+        <path fill="#F7B3CE" fill-rule="nonzero" d="M234.04.95h-7.37L.04 175.45v35.93l234-180.18z"/>
+        <path fill="#88AEDC" fill-rule="nonzero" d="M179.49.95L.04 139.12v36.33L226.67.95z"/>
+        <path fill="#F58F8E" fill-rule="nonzero" d="M234.04 31.2L.04 211.38v22.57h18.03l215.97-166.3z"/>
+        <path fill="#FEE18A" fill-rule="nonzero" d="M234.04 67.65L18.07 233.95H64.7l169.34-130.39z"/>
+        <path fill="#F3F095" fill-rule="nonzero" d="M234.04 103.56L64.7 233.95h47.41l121.93-93.89z"/>
+        <path fill="#55C1AE" fill-rule="nonzero" d="M234.04 140.08l-121.91 93.87h46.22l75.69-58.28z"/>
+        <path fill="#F7B3CE" fill-rule="nonzero" d="M234.04 212l-28.51 21.95h28.51z"/>
+        <path d="M65.237 77.75c4.514.95 7.774 2.8 11.135 6.3 3.059 3.2 4.965 6.85 5.767 10.95.652 3.45.652 40.55 0 44.05-1.705 9.1-9.479 16.2-19.109 17.45-2.006.25-8.727.5-14.845.5H37V77h12.438c8.828 0 13.342.2 15.8.75zM51.545 117v25.6l5.166-.2c4.464-.15 5.417-.35 7.423-1.5 3.912-2.3 3.962-2.45 3.962-24.2 0-21.2 0-21.2-3.661-23.6-1.806-1.2-2.558-1.35-7.473-1.55l-5.417-.15V117zm79.245-32.75v7.25h-25.58v18h15.549V124H105.21l.1 9.1.15 9.15 12.69.15 12.638.1V157h-14.795c-16.451 0-19.009-.3-21.617-2.6-3.661-3.2-3.46-1.15-3.611-36.3-.1-21.9.05-32.25.401-33.65.702-2.6 3.661-5.8 6.27-6.7 1.554-.55 5.466-.7 17.704-.75h15.648v7.25zm31.647 20.85c3.712 14.25 6.821 25.6 6.922 25.25.15-.35 3.31-12.4 7.071-26.85l6.872-26.25 7.824-.15c5.918-.1 7.874.05 7.874.5s-17.354 66.2-18.357 69.5c-.702 2.3-4.463 7-6.57 8.25-2.658 1.5-6.57 1.75-8.978.5-2.156-1.1-5.015-4.4-6.47-7.5-.902-1.9-15.648-56-19.058-70l-.352-1.35h7.825c7.673 0 7.874 0 8.275 1.1.2.65 3.41 12.8 7.122 27z" fill="#FFF"/>
+    </g>
+</svg>
+
+      </span>
+      About
+    </a>
+  </li>
+
+        <li>
+    <a href="/contact" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g class="nc-icon-wrapper">
+        <path fill="#FFAC33" d="M38.724 33.656c-1.239-.01-1.241 1.205-1.241 1.205H22.5c-5.246 0-9.5-4.254-9.5-9.5s4.254-9.5 9.5-9.5 9.5 4.254 9.5 9.5c0 3.062-1.6 5.897-3.852 7.633h5.434C35.022 30.849 36 28.139 36 25.361c0-7.456-6.045-13.5-13.5-13.5-7.456 0-13.5 6.044-13.5 13.5 0 7.455 6.044 13.5 13.5 13.5h14.982s-.003 1.127 1.241 1.139c1.238.012 1.228-1.245 1.228-1.245l.014-3.821s.001-1.267-1.241-1.278zM9 18.26a16.047 16.047 0 014-4.739V13c0-5 5-7 5-8s-1-1-1-1H5C4 4 4 5 4 5c0 1 5 3.333 5 7.69v5.57z"/>
+        <path fill="#BE1931" d="M17.091 33.166a9.487 9.487 0 01-4.045-8.72l-3.977-.461c-.046.452-.069.911-.069 1.376 0 4.573 2.28 8.608 5.76 11.051l2.331-3.246z"/>
+        <path fill="#BE1931" d="M10 29.924s-5.188-.812-5 1 5-1 5-1zm0 .312s-4.125 2.688-2.938 3.75S10 30.236 10 30.236z"/>
+    </g>
+</svg>
+
+      </span>
+      Contact
+    </a>
+  </li>
+
+  </ul>
+</nav>
+
+  <nav class="mb-6 " aria-labelledby="other-nav-heading">
+    <h2 id="other-nav-heading" class="mt-6 mb-2 fs-base">
+      Other
+    </h2>
+    <ul class="other-navigation-links sidebar-navigation-links spec-sidebar-navigation-links">
+          <li>
+    <a href="/code-of-conduct" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g class="nc-icon-wrapper">
+        <path fill="#FFDB5E" d="M38.956 21.916c0-.503-.12-.975-.321-1.404-1.341-4.326-7.619-4.01-16.549-4.221-1.493-.035-.639-1.798-.115-5.668.341-2.517-1.282-6.382-4.01-6.382-4.498 0-.171 3.548-4.148 12.322-2.125 4.688-6.875 2.062-6.875 6.771v10.719c0 1.833.18 3.595 2.758 3.885 2.499.281 1.937 2.062 5.542 2.062h18.044a3.337 3.337 0 003.333-3.334c0-.762-.267-1.456-.698-2.018 1.02-.571 1.72-1.649 1.72-2.899 0-.76-.266-1.454-.696-2.015 1.023-.57 1.725-1.649 1.725-2.901 0-.909-.368-1.733-.961-2.336a3.311 3.311 0 001.251-2.581z"/>
+        <path fill="#EE9547" d="M27.02 25.249h8.604c1.17 0 2.268-.626 2.866-1.633a.876.876 0 00-1.506-.892 1.588 1.588 0 01-1.361.775h-8.81c-.873 0-1.583-.71-1.583-1.583s.71-1.583 1.583-1.583H32.7a.875.875 0 000-1.75h-5.888a3.337 3.337 0 00-3.333 3.333c0 1.025.475 1.932 1.205 2.544a3.32 3.32 0 00-.998 2.373c0 1.028.478 1.938 1.212 2.549a3.318 3.318 0 00.419 5.08 3.305 3.305 0 00-.852 2.204 3.337 3.337 0 003.333 3.333h5.484a3.35 3.35 0 002.867-1.632.875.875 0 00-1.504-.894 1.594 1.594 0 01-1.363.776h-5.484c-.873 0-1.583-.71-1.583-1.583s.71-1.583 1.583-1.583h6.506a3.35 3.35 0 002.867-1.633.875.875 0 10-1.504-.894 1.572 1.572 0 01-1.363.777h-7.063a1.585 1.585 0 010-3.167h8.091a3.35 3.35 0 002.867-1.632.875.875 0 00-1.504-.894 1.573 1.573 0 01-1.363.776H27.02a1.585 1.585 0 010-3.167z"/>
+    </g>
+</svg>
+
+      </span>
+      Code of Conduct
+    </a>
+  </li>
+
+          <li>
+    <a href="/privacy" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g transform="translate(4 4)">
+        <circle fill="#FFCC4D" cx="18" cy="18" r="18"/>
+        <path fill="#664500" d="M27.335 23.629a.501.501 0 00-.635-.029c-.039.029-3.922 2.9-8.7 2.9-4.766 0-8.662-2.871-8.7-2.9a.5.5 0 10-.729.657C8.7 24.472 11.788 29.5 18 29.5s9.301-5.028 9.429-5.243a.499.499 0 00-.094-.628z"/>
+        <path fill="#65471B" d="M18 26.591c-.148 0-.291-.011-.438-.016v4.516h.875v-4.517c-.145.005-.289.017-.437.017z"/>
+        <path fill="#FFF" d="M22 26c.016-.004-1.45.378-2.446.486-.366.042-.737.076-1.117.089v4.517H20c1.1 0 2-.9 2-2V26zm-8 0c-.016-.004 1.45.378 2.446.486.366.042.737.076 1.117.089v4.517H16c-1.1 0-2-.9-2-2V26z"/>
+        <path fill="#65471B" d="M27.335 23.629a.501.501 0 00-.635-.029c-.03.022-2.259 1.668-5.411 2.47-.443.113-1.864.43-3.286.431-1.424 0-2.849-.318-3.292-.431-3.152-.802-5.381-2.448-5.411-2.47a.501.501 0 00-.729.657c.097.162 1.885 3.067 5.429 4.481v-1.829c-.016-.004 1.45.378 2.446.486.366.042.737.076 1.117.089.146.005.289.016.437.016.148 0 .291-.011.438-.016.38-.013.751-.046 1.117-.089.996-.108 2.462-.49 2.446-.486v1.829c3.544-1.414 5.332-4.319 5.429-4.481a.5.5 0 00-.095-.628zm-.711-9.605c0 1.714-.938 3.104-2.096 3.104-1.157 0-2.096-1.39-2.096-3.104s.938-3.104 2.096-3.104c1.158 0 2.096 1.39 2.096 3.104zm-17.167 0c0 1.714.938 3.104 2.096 3.104 1.157 0 2.096-1.39 2.096-3.104s-.938-3.104-2.096-3.104c-1.158 0-2.096 1.39-2.096 3.104z"/>
+        <path fill="#292F33" d="M34.808 9.627c-.171-.166-1.267.274-2.376-.291-2.288-1.166-8.07-2.291-11.834.376-.403.285-2.087.333-2.558.313-.471.021-2.155-.027-2.558-.313-3.763-2.667-9.545-1.542-11.833-.376-1.109.565-2.205.125-2.376.291-.247.239-.247 1.196.001 1.436.246.239 1.477.515 1.722 1.232.247.718.249 4.958 2.213 6.424 1.839 1.372 6.129 1.785 8.848.238 2.372-1.349 2.289-4.189 2.724-5.881.155-.603.592-.907 1.26-.907s1.105.304 1.26.907c.435 1.691.351 4.532 2.724 5.881 2.719 1.546 7.009 1.133 8.847-.238 1.965-1.465 1.967-5.706 2.213-6.424.245-.717 1.476-.994 1.722-1.232.248-.24.249-1.197.001-1.436zm-20.194 3.65c-.077 1.105-.274 3.227-1.597 3.98-.811.462-1.868.743-2.974.743h-.001c-1.225 0-2.923-.347-3.587-.842-.83-.619-1.146-3.167-1.265-4.12-.076-.607-.28-2.09.388-2.318 1.06-.361 2.539-.643 4.052-.643.693 0 3.021.043 4.155.741 1.005.617.872 1.851.829 2.459zm16.278-.253c-.119.954-.435 3.515-1.265 4.134-.664.495-2.362.842-3.587.842h-.001c-1.107 0-2.163-.281-2.975-.743-1.323-.752-1.52-2.861-1.597-3.966-.042-.608-.176-1.851.829-2.468 1.135-.698 3.462-.746 4.155-.746 1.513 0 2.991.277 4.052.638.668.228.465 1.702.389 2.309z"/>
+    </g>
+</svg>
+
+      </span>
+      Privacy Policy
+    </a>
+  </li>
+
+          <li>
+    <a href="/terms" class="sidebar-navigation-link crayons-link crayons-link--block">
+      <span class="crayons-icon crayons-icon--default">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="24" height="24">
+    <g transform="translate(4 4)">
+        <ellipse fill="#F5F8FA" cx="8.828" cy="18" rx="7.953" ry="13.281"/>
+        <path fill="#E1E8ED" d="M8.828 32.031C3.948 32.031.125 25.868.125 18S3.948 3.969 8.828 3.969 17.531 10.132 17.531 18s-3.823 14.031-8.703 14.031zm0-26.562C4.856 5.469 1.625 11.09 1.625 18s3.231 12.531 7.203 12.531S16.031 24.91 16.031 18 12.8 5.469 8.828 5.469z"/>
+        <circle fill="#8899A6" cx="6.594" cy="18" r="4.96"/>
+        <circle fill="#292F33" cx="6.594" cy="18" r="3.565"/>
+        <circle fill="#F5F8FA" cx="7.911" cy="15.443" r="1.426"/>
+        <ellipse fill="#F5F8FA" cx="27.234" cy="18" rx="7.953" ry="13.281"/>
+        <path fill="#E1E8ED" d="M27.234 32.031c-4.88 0-8.703-6.163-8.703-14.031s3.823-14.031 8.703-14.031S35.938 10.132 35.938 18s-3.824 14.031-8.704 14.031zm0-26.562c-3.972 0-7.203 5.622-7.203 12.531 0 6.91 3.231 12.531 7.203 12.531S34.438 24.91 34.438 18 31.206 5.469 27.234 5.469z"/>
+        <circle fill="#8899A6" cx="25" cy="18" r="4.96"/>
+        <circle fill="#292F33" cx="25" cy="18" r="3.565"/>
+        <circle fill="#F5F8FA" cx="26.317" cy="15.443" r="1.426"/>
+    </g>
+</svg>
+
+      </span>
+      Terms of use
+    </a>
+  </li>
+
+    </ul>
+  </nav>
+
+<div class="flex justify-start mb-6">
+    <a
+    href="https://twitter.com/thepracticaldev"
+    target="_blank"
+    class="crayons-link crayons-link--secondary mx-2"
+    rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="a2jjntzt6qa68kkcs3hryrwo4ziwdea7" class="crayons-icon"><title id="a2jjntzt6qa68kkcs3hryrwo4ziwdea7">Twitter</title>
+    <path d="M22.162 5.656a8.383 8.383 0 01-2.402.658A4.196 4.196 0 0021.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 00-7.126 3.814 11.874 11.874 0 01-8.62-4.37 4.168 4.168 0 00-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 01-1.894-.523v.052a4.185 4.185 0 003.355 4.101 4.211 4.211 0 01-1.89.072A4.185 4.185 0 007.97 16.65a8.395 8.395 0 01-6.191 1.732 11.83 11.83 0 006.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.495 8.495 0 002.087-2.165l-.001-.001z" fill="#65bbf2"></path>
+</svg>
+
+  </a>
+  <a
+    href="https://facebook.com/thepracticaldev"
+    target="_blank"
+    class="crayons-link crayons-link--secondary mx-2"
+    rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="ahudkgj48wo3rwwh4dolp8l1nyo6zcac" class="crayons-icon"><title id="ahudkgj48wo3rwwh4dolp8l1nyo6zcac">Facebook</title>
+    <path d="M15.402 21v-6.966h2.333l.349-2.708h-2.682V9.598c0-.784.218-1.319 1.342-1.319h1.434V5.857a19.188 19.188 0 00-2.09-.107c-2.067 0-3.482 1.262-3.482 3.58v1.996h-2.338v2.708h2.338V21H4a1 1 0 01-1-1V4a1 1 0 011-1h16a1 1 0 011 1v16a1 1 0 01-1 1h-4.598z"></path>
+</svg>
+
+  </a>
+  <a
+    href="https://github.com/thepracticaldev"
+    target="_blank"
+    class="crayons-link crayons-link--secondary mx-2"
+    rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="aevt2y86jv2rvbqmetvo2ydgyow6rglw" class="crayons-icon"><title id="aevt2y86jv2rvbqmetvo2ydgyow6rglw">Github</title>
+    <path d="M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 006.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 012.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.024 2.75-1.024.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0022 12c0-5.525-4.475-10-10-10z"></path>
+</svg>
+
+  </a>
+  <a
+    href="https://instagram.com/thepracticaldev"
+    target="_blank"
+    class="crayons-link crayons-link--secondary mx-2"
+    rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="a7fpckckjz7v7xoy23io7nxz0959ox1l" class="crayons-icon"><title id="a7fpckckjz7v7xoy23io7nxz0959ox1l">Instagram</title>
+    <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.508-1.105.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 10-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"></path>
+</svg>
+
+  </a>
+  <a
+    href="https://twitch.com/thepracticaldev"
+    target="_blank"
+    class="crayons-link crayons-link--secondary mx-2"
+    rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="acx6uzcktnbz8boxs3jdqi25b2j0be6g" class="crayons-icon"><title id="acx6uzcktnbz8boxs3jdqi25b2j0be6g">Twitch</title>
+    <path d="M4.3 3H21v11.7l-4.7 4.7h-3.9l-2.5 2.4H7v-2.4H3V6.2L4.3 3zM5 17.4h4v2.4h.095l2.5-2.4h3.877L19 13.872V5H5v12.4zM15 8h2v4.7h-2V8zm0 0h2v4.7h-2V8zm-5 0h2v4.7h-2V8z"></path>
+</svg>
+
+  </a>
+
+</div>
+
+    </div>
+  </div>
+  <div class="hamburger__overlay js-hamburger-trigger"></div>
+</div>
+
+
+        <div id="active-broadcast" class="broadcast-wrapper"></div>
+        <div id="message-notice"></div>
+  <div id="base-payment-pointer" data-payment-pointer="$ilp.uphold.com/24HhrUGG7ekn"></div>
+<div id="page-content" class="wrapper stories stories-show" data-current-page="stories-show">
+  <div id="page-content-inner">
+    <div id="page-route-change" class="screen-reader-only" aria-live="polite" aria-atomic="true"></div>
+    
+
+
+<style>
+  .html-variant-wrapper { display: none}
+</style>
+
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.2.10/webcomponents-loader.js"
+        integrity="sha384-3HK5hxQbkFqOIxMbpROlRmRtYl2LBZ52t+tqcjzsmr9NJuOWQxl8RgQSyFvq2lhy"
+        crossorigin="anonymous" defer></script>
+
+  <script src="https://dev.to/packs/js/runtime~clipboardCopy-f6ce5ddc621e42e1785a.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/clipboardCopy-ef322a65a745644fd9c8.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~webShare-9c58f8bfc3f8c45796b2.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/webShare-d45688ffd4d43f9f6670.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~articlePage-9d2dcb590d4a1166f6a4.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/0-deb4a3d66346407460bf.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/1-5121e9f8782f6f5c2123.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/articlePage-5db09f3d6eda5dc6f958.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~commentDropdowns-fa7f05c587a9f090f8e6.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/2-feac54b0d5293fd89992.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/commentDropdowns-f7b3b8413292ed35c665.chunk.js" defer="defer"></script>
+
+  
+<div class="crayons-layout crayons-layout--3-cols crayons-layout--article">
+  <aside class="crayons-layout__sidebar-left" aria-label="Article actions">
+    <div class="crayons-article-actions print-hidden">
+  <div class="crayons-article-actions__inner">
+    <div class="align-center m:relative">
+      <div id="article-show-more-dropdown" class="crayons-dropdown side-bar left-2 right-2 m:right-auto m:left-100 s:left-auto bottom-100 m:bottom-auto m:top-0 mb-1 m:mb-0">
+        <div>
+          <button
+            id="copy-post-url-button"
+            class="flex justify-between crayons-link crayons-link--block w-100 bg-transparent border-0"
+            data-postUrl="https://dev.to/danielnetzer/all-we-need-is-graph-graph-is-all-we-need-11k8">
+            <span class="fw-bold">Copy link</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" id="article-copy-icon" aria-hidden="true" class="crayons-icon mx-2 shrink-0"><title>Copy link</title>
+    <path d="M7 6V3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1h-3v3c0 .552-.45 1-1.007 1H4.007A1 1 0 013 21l.003-14c0-.552.45-1 1.007-1H7zm2 0h8v10h2V4H9v2zm-2 5v2h6v-2H7zm0 4v2h6v-2H7z"></path>
+</svg>
+
+          </button>
+          <div id="article-copy-link-announcer" aria-live="polite" class="crayons-notice crayons-notice--success my-2 p-1" aria-live="polite" hidden>Copied to Clipboard</div>
+        </div>
+
+        <div class="Desktop-only">
+          <a
+            target="_blank"
+            class="crayons-link crayons-link--block"
+            rel="noopener"
+            href='https://twitter.com/intent/tweet?text=%22All%20we%20need%20is%20graph%2C%20graph%20is%20all%20we%20need%22%20by%20Daniel%20Netzer%20%23DEVCommunity%20https%3A%2F%2Fdev.to%2Fdanielnetzer%2Fall-we-need-is-graph-graph-is-all-we-need-11k8'>
+            Share to Twitter
+          </a>
+          <a
+            target="_blank"
+            class="crayons-link crayons-link--block"
+            rel="noopener"
+            href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fdev.to%2Fdanielnetzer%2Fall-we-need-is-graph-graph-is-all-we-need-11k8&title=All%20we%20need%20is%20graph%2C%20graph%20is%20all%20we%20need&summary=Introducing%20RxZu%2C%20Typescripted%20graphs%20engine.%20%20%20%20%20%20%20%20%20%20%20First%20thing%20first%2C%20what%20is%20RxZu%3F%20%20%20RxZu%20is%20a...&source=DEV%20Community">
+            Share to LinkedIn
+          </a>
+          <a
+            target="_blank"
+            class="crayons-link crayons-link--block"
+            rel="noopener"
+            href="https://www.reddit.com/submit?url=https%3A%2F%2Fdev.to%2Fdanielnetzer%2Fall-we-need-is-graph-graph-is-all-we-need-11k8&title=All%20we%20need%20is%20graph%2C%20graph%20is%20all%20we%20need">
+            Share to Reddit
+          </a>
+          <a
+            target="_blank"
+            class="crayons-link crayons-link--block"
+            rel="noopener"
+            href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fdev.to%2Fdanielnetzer%2Fall-we-need-is-graph-graph-is-all-we-need-11k8&t=All%20we%20need%20is%20graph%2C%20graph%20is%20all%20we%20need">
+            Share to Hacker News
+          </a>
+          <a
+            target="_blank"
+            class="crayons-link crayons-link--block"
+            rel="noopener"
+            href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fdev.to%2Fdanielnetzer%2Fall-we-need-is-graph-graph-is-all-we-need-11k8">
+            Share to Facebook
+          </a>
+        </div>
+
+        <web-share-wrapper shareurl="https://dev.to/danielnetzer/all-we-need-is-graph-graph-is-all-we-need-11k8" sharetitle="All we need is graph, graph is all we need" sharetext="Introducing RxZu, Typescripted graphs engine.           First thing first, what is RxZu?   RxZu is a..." template="web-share-button">
+        </web-share-wrapper>
+        <template id="web-share-button">
+          <a href="#" class="dropdown-link-row crayons-link crayons-link--block">Share Post via...</a>
+        </template>
+
+        <a href="/report-abuse" class="crayons-link crayons-link--block">Report Abuse</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div class="html-variant-wrapper" id="html-variant-article-show-below-article" data-variant-id="382">
+        <div></div>
+      </div>
+
+  </aside>
+
+  <main id="main-content" class="crayons-layout__content grid gap-4">
+    <div class="article-wrapper">
+
+
+      <article class="crayons-card crayons-article mb-4"
+        id="article-show-container"
+        data-article-id="567971"
+        data-author-id="276924"
+        data-co-author-ids=""
+        data-path="/danielnetzer/all-we-need-is-graph-graph-is-all-we-need-11k8"
+        data-published="true"
+        data-pin-path="/stories/feed/pinned_article"
+        data-pinned-article-id=""
+         >
+        <header class="crayons-article__header" id="main-title">
+
+          <div class="crayons-article__header__meta">
+            <div class="flex s:items-start flex-col s:flex-row">
+              <div id="action-space" class="crayons-article__actions mb-4 s:mb-0 s:order-last"></div>
+              <div class="flex flex-1 mb-5 items-start">
+                <div class="relative">
+                </div>
+                <div class="pl-3 flex-1">
+                  <a href="/danielnetzer" class="crayons-link fw-bold">Kenneth Toscano</a>
+                </div>
+              </div>
+            </div>
+
+            <h1 class="fs-3xl m:fs-4xl l:fs-5xl fw-bold s:fw-heavy lh-tight mb-2 medium">
+              All we need is graph, graph is all we need
+            </h1>
+
+              <div class="spec__tags flex flex-wrap">
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(247, 223, 30, 0.10);
+        --tag-prefix: #F7DF1E;
+        --tag-bg-hover: rgba(247, 223, 30, 0.10);
+        --tag-prefix-hover: #F7DF1E;
+      " href="/t/javascript"><span class="crayons-tag__prefix">#</span>javascript</a>
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(169, 2, 42, 0.10);
+        --tag-prefix: #A9022A;
+        --tag-bg-hover: rgba(169, 2, 42, 0.10);
+        --tag-prefix-hover: #A9022A;
+      " href="/t/angular"><span class="crayons-tag__prefix">#</span>angular</a>
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(34, 34, 34, 0.10);
+        --tag-prefix: #222222;
+        --tag-bg-hover: rgba(34, 34, 34, 0.10);
+        --tag-prefix-hover: #222222;
+      " href="/t/react"><span class="crayons-tag__prefix">#</span>react</a>
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(65, 184, 131, 0.10);
+        --tag-prefix: #41b883;
+        --tag-bg-hover: rgba(65, 184, 131, 0.10);
+        --tag-prefix-hover: #41b883;
+      " href="/t/vue"><span class="crayons-tag__prefix">#</span>vue</a>
+              </div>
+          </div>
+        </header>
+
+        <div class="crayons-article__main">
+
+          <div class="crayons-article__body text-styles spec__body" data-article-id="567971" id="article-body">
+            <p>Introducing RxZu, Typescripted graphs engine.</p>
+
+<h4>
+  <a name="first-thing-first-what-is-rxzu" href="#first-thing-first-what-is-rxzu" class="anchor">
+  </a>
+  First thing first, what is RxZu?
+</h4>
+
+<p>RxZu is a combination of Rx which is a shorthand for Reactive Extensions and in our specific case Reactive Extensions for Javascript also known as RxJS.<br>
+Zu is the Japanese word for drawing, picture, diagram, figure, illustration, chart, graph.<br>
+That leads us to an understanding that RxZu is a diagrams engine system, build on top of RxJS, which takes the idea of graphic visualization to the next level in terms of performance, optimization, and customizability.</p>
+
+<p>RxZu is composed of multiple parts, the core engine which is in charge of handling the models and the synchronization between them, and the rendering engine which is in charge of the, well, the rendering of course, and is based on the desired framework utilizing the core engine.</p>
+
+<p>Some of the leading guidelines in the project are minimal, clean code and the ability for customizations and extendibility of the engine entities which are: </p>
+
+<ul>
+<li>Nodes, the main building block of any graph, are the visual representation of data intersections.</li>
+<li>Ports, links got to start from some point.</li>
+<li>Links, symbols of connectivity and continuity.</li>
+<li>Labels, one might want to give a name to a link or even use it for links actions buttons</li>
+<li>Custom, want to add your entity? no problem.</li>
+</ul>
+<h4>
+  <a name="why-not-use-an-existing-library-youre-asking-yourself" href="#why-not-use-an-existing-library-youre-asking-yourself" class="anchor">
+  </a>
+  Why not use an existing library you're asking yourself
+</h4>
+
+<p>After a long research we reached a very small number of candidates who are leaders in the industry that didn't stand up to a certain standard we defined:</p>
+
+<ol>
+<li>Angular support</li>
+<li>Easily extendable and customizable</li>
+<li>Lightweight</li>
+<li>Extensive support and community</li>
+</ol>
+
+<p>Sadly, all the libraries we found were either extremely heavy and included outdated dependencies such as Lodash, Backbone, etc...<br>
+Wasn't open-sourced and didn't have any community around them.<br>
+The implementation was outdated, no Typings, unfitting for Angular environment, and introduced lots of overhead and complexity for the simplest use case.</p>
+<h4>
+  <a name="enough-talking-lets-code" href="#enough-talking-lets-code" class="anchor">
+  </a>
+  Enough talking, let's code
+</h4>
+
+<p><strong>RxZu currently only implements Angular as a rendering engine therefor all code examples are for Angular.</strong></p>
+
+<p><a href="https://res.cloudinary.com/practicaldev/image/fetch/s--d-Tt9rL6--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://github.com/Vonage/rxzu/raw/main/assets/draganddropexample.gif" class="article-body-image-wrapper"><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--d-Tt9rL6--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://github.com/Vonage/rxzu/raw/main/assets/draganddropexample.gif" alt="Alt Text" loading="lazy"></a><br>
+Let's start by creating a new Angular application, that will display a graph and have a drag n' drop interface to add more nodes.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight shell"><code>ng new rxzu-angular
+<span class="c"># wait for angular installation to finish</span>
+<span class="nb">cd </span>rxzu-angular
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path fill="#fff" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path fill="#fff" d="M436 192H312c-13.3 0-24-10.7-24-24V44c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24V44c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300V344c0-13.3-10.7-24-24-24H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12H312c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Install @rxzu/angular<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight shell"><code>npm i @rxzu/angular
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path fill="#fff" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path fill="#fff" d="M436 192H312c-13.3 0-24-10.7-24-24V44c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24V44c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300V344c0-13.3-10.7-24-24-24H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12H312c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Navigate to <code>./tsconfig.json</code> and change <code>"strict": true</code> to <code>"strict": false</code>, sadly we don't yet support this and it will introduce some generics typings issues. <br>
+<strong>rest assured this is a work in progress.</strong></p>
+
+<p>Run the application<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight shell"><code>ng s
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path fill="#fff" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path fill="#fff" d="M436 192H312c-13.3 0-24-10.7-24-24V44c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24V44c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300V344c0-13.3-10.7-24-24-24H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12H312c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Add to <code>app.module.ts</code> RxZu module<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/platform-browser</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./app.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">RxZuDiagramsModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@rxzu/angular</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
+  <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">BrowserModule</span><span class="p">,</span> <span class="nx">RxZuDiagramsModule</span><span class="p">],</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="na">bootstrap</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppModule</span> <span class="p">{}</span>
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path fill="#fff" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path fill="#fff" d="M436 192H312c-13.3 0-24-10.7-24-24V44c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24V44c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300V344c0-13.3-10.7-24-24-24H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12H312c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Now let's create a cool stylish grid as our background, the draggable nodes and our action bar container<br>
+<code>app.component.scss</code><br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight scss"><code><span class="nc">.demo-diagram</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">min-height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="mh">#3c3c3c</span><span class="p">;</span>
+  <span class="nl">background-image</span><span class="p">:</span> <span class="nf">linear-gradient</span><span class="p">(</span>
+      <span class="m">0deg</span><span class="o">,</span>
+      <span class="nb">transparent</span> <span class="m">24%</span><span class="o">,</span>
+      <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="mi">.05</span><span class="p">)</span> <span class="m">25%</span><span class="o">,</span>
+      <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="mi">.05</span><span class="p">)</span> <span class="m">26%</span><span class="o">,</span>
+      <span class="nb">transparent</span> <span class="m">27%</span><span class="o">,</span>
+      <span class="nb">transparent</span> <span class="m">74%</span><span class="o">,</span>
+      <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="mi">.05</span><span class="p">)</span> <span class="m">75%</span><span class="o">,</span>
+      <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="mi">.05</span><span class="p">)</span> <span class="m">76%</span><span class="o">,</span>
+      <span class="nb">transparent</span> <span class="m">77%</span><span class="o">,</span>
+      <span class="nb">transparent</span>
+    <span class="p">)</span><span class="o">,</span>
+    <span class="nf">linear-gradient</span><span class="p">(</span>
+      <span class="m">90deg</span><span class="o">,</span>
+      <span class="nb">transparent</span> <span class="m">24%</span><span class="o">,</span>
+      <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="mi">.05</span><span class="p">)</span> <span class="m">25%</span><span class="o">,</span>
+      <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="mi">.05</span><span class="p">)</span> <span class="m">26%</span><span class="o">,</span>
+      <span class="nb">transparent</span> <span class="m">27%</span><span class="o">,</span>
+      <span class="nb">transparent</span> <span class="m">74%</span><span class="o">,</span>
+      <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="mi">.05</span><span class="p">)</span> <span class="m">75%</span><span class="o">,</span>
+      <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="mi">.05</span><span class="p">)</span> <span class="m">76%</span><span class="o">,</span>
+      <span class="nb">transparent</span> <span class="m">77%</span><span class="o">,</span>
+      <span class="nb">transparent</span>
+    <span class="p">);</span>
+  <span class="nl">background-size</span><span class="p">:</span> <span class="m">50px</span> <span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.node-drag</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
+  <span class="nl">cursor</span><span class="p">:</span> <span class="n">grab</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.action-bar</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
+  <span class="nl">z-index</span><span class="p">:</span> <span class="m">2000</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">0</span><span class="mi">.4</span><span class="p">);</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+
+  <span class="o">*</span> <span class="p">{</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path fill="#fff" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path fill="#fff" d="M436 192H312c-13.3 0-24-10.7-24-24V44c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24V44c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300V344c0-13.3-10.7-24-24-24H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12H312c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Our html template<br>
+<code>app.component.html</code><br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight html"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"action-bar"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span>
+    <span class="na">*ngFor=</span><span class="s">"let node of nodesLibrary"</span>
+    <span class="na">class=</span><span class="s">"node-drag"</span>
+    <span class="na">draggable=</span><span class="s">"true"</span>
+    <span class="na">[attr.data-type]=</span><span class="s">"node.type"</span>
+    <span class="na">(dragstart)=</span><span class="s">"onBlockDrag($event)"</span>
+    <span class="na">[ngStyle]=</span><span class="s">"{ 'background-color': node.color }"</span>
+  <span class="nt">&gt;</span>
+    {{ node.type }}
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;ngdx-diagram</span>
+  <span class="na">class=</span><span class="s">"demo-diagram"</span>
+  <span class="na">[model]=</span><span class="s">"diagramModel"</span>
+  <span class="na">(drop)=</span><span class="s">"onBlockDropped($event)"</span>
+  <span class="na">(dragover)=</span><span class="s">"$event.preventDefault()"</span>
+<span class="nt">&gt;&lt;/ngdx-diagram&gt;</span>
+
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path fill="#fff" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path fill="#fff" d="M436 192H312c-13.3 0-24-10.7-24-24V44c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24V44c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300V344c0-13.3-10.7-24-24-24H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12H312c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>And for the last piece in the puzzle, create some nodes, ports, link them up and render it all.<br>
+<code>app.component.ts</code><br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">DiagramEngine</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@rxzu/angular</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">DiagramModel</span><span class="p">,</span> <span class="nx">DefaultNodeModel</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@rxzu/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">app-root</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./app.component.html</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">./app.component.scss</span><span class="dl">'</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+  <span class="nl">diagramModel</span><span class="p">:</span> <span class="nx">DiagramModel</span><span class="p">;</span>
+  <span class="nx">nodesDefaultDimensions</span> <span class="o">=</span> <span class="p">{</span> <span class="na">height</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="na">width</span><span class="p">:</span> <span class="mi">200</span> <span class="p">};</span>
+  <span class="nx">nodesLibrary</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#AFF8D8</span><span class="dl">'</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">greenish</span><span class="dl">'</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#FFB5E8</span><span class="dl">'</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pinkish</span><span class="dl">'</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#85E3FF</span><span class="dl">'</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">blueish</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">];</span>
+
+  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">diagramEngine</span><span class="p">:</span> <span class="nx">DiagramEngine</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">diagramEngine</span><span class="p">.</span><span class="nx">registerDefaultFactories</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">diagramModel</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">diagramEngine</span><span class="p">.</span><span class="nx">createModel</span><span class="p">();</span>
+
+    <span class="kd">const</span> <span class="nx">node1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DefaultNodeModel</span><span class="p">({</span> <span class="na">id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="nx">node1</span><span class="p">.</span><span class="nx">setCoords</span><span class="p">({</span> <span class="na">x</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mi">300</span> <span class="p">});</span>
+    <span class="nx">node1</span><span class="p">.</span><span class="nx">setDimensions</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">nodesDefaultDimensions</span><span class="p">);</span>
+    <span class="nx">node1</span><span class="p">.</span><span class="nx">addOutPort</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport1</span><span class="dl">'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport1</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="nx">node1</span><span class="p">.</span><span class="nx">addOutPort</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport2</span><span class="dl">'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport2</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="kd">const</span> <span class="nx">outport3</span> <span class="o">=</span> <span class="nx">node1</span><span class="p">.</span><span class="nx">addOutPort</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport3</span><span class="dl">'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport3</span><span class="dl">'</span> <span class="p">});</span>
+
+    <span class="kd">const</span> <span class="nx">node2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DefaultNodeModel</span><span class="p">();</span>
+    <span class="nx">node2</span><span class="p">.</span><span class="nx">setCoords</span><span class="p">({</span> <span class="na">x</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mi">0</span> <span class="p">});</span>
+    <span class="nx">node2</span><span class="p">.</span><span class="nx">setDimensions</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">nodesDefaultDimensions</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">inport</span> <span class="o">=</span> <span class="nx">node2</span><span class="p">.</span><span class="nx">addInPort</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">inport2</span><span class="dl">'</span> <span class="p">});</span>
+
+    <span class="kd">const</span> <span class="nx">link</span> <span class="o">=</span> <span class="nx">outport3</span><span class="p">.</span><span class="nx">link</span><span class="p">(</span><span class="nx">inport</span><span class="p">);</span>
+    <span class="nx">link</span><span class="p">.</span><span class="nx">setLocked</span><span class="p">();</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">diagramModel</span><span class="p">.</span><span class="nx">addAll</span><span class="p">(</span><span class="nx">node1</span><span class="p">,</span> <span class="nx">node2</span><span class="p">,</span> <span class="nx">link</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">diagramModel</span><span class="p">.</span><span class="nx">getDiagramEngine</span><span class="p">().</span><span class="nx">zoomToFit</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">createNode</span><span class="p">(</span><span class="nx">type</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">nodeData</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodesLibrary</span><span class="p">.</span><span class="nx">find</span><span class="p">((</span><span class="nx">nodeLib</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">nodeLib</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="nx">type</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">node</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DefaultNodeModel</span><span class="p">({</span> <span class="na">color</span><span class="p">:</span> <span class="nx">nodeData</span><span class="p">.</span><span class="nx">color</span> <span class="p">});</span>
+
+    <span class="nx">node</span><span class="p">.</span><span class="nx">setExtras</span><span class="p">(</span><span class="nx">nodeData</span><span class="p">);</span>
+    <span class="nx">node</span><span class="p">.</span><span class="nx">setDimensions</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">nodesDefaultDimensions</span><span class="p">);</span>
+    <span class="nx">node</span><span class="p">.</span><span class="nx">addOutPort</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport1</span><span class="dl">'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport1</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="nx">node</span><span class="p">.</span><span class="nx">addOutPort</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport2</span><span class="dl">'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport2</span><span class="dl">'</span> <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">node</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * On drag start, assign the desired properties to the dataTransfer
+   */</span>
+  <span class="nx">onBlockDrag</span><span class="p">(</span><span class="nx">e</span><span class="p">:</span> <span class="nx">DragEvent</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">type</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span> <span class="k">as</span> <span class="nx">HTMLElement</span><span class="p">).</span><span class="nx">getAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">data-type</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">dataTransfer</span><span class="p">.</span><span class="nx">setData</span><span class="p">(</span><span class="dl">'</span><span class="s1">type</span><span class="dl">'</span><span class="p">,</span> <span class="nx">type</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * on block dropped, create new intent with the empty data of the selected block type
+   */</span>
+  <span class="nx">onBlockDropped</span><span class="p">(</span><span class="nx">e</span><span class="p">:</span> <span class="nx">DragEvent</span><span class="p">):</span> <span class="k">void</span> <span class="o">|</span> <span class="kc">undefined</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">nodeType</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">dataTransfer</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="dl">'</span><span class="s1">type</span><span class="dl">'</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">node</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createNode</span><span class="p">(</span><span class="nx">nodeType</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">droppedPoint</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">diagramEngine</span>
+      <span class="p">.</span><span class="nx">getMouseManager</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">getRelativePoint</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+
+    <span class="kd">const</span> <span class="nx">coords</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">x</span><span class="p">:</span> <span class="nx">droppedPoint</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodesDefaultDimensions</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="na">y</span><span class="p">:</span> <span class="nx">droppedPoint</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">nodesDefaultDimensions</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="nx">node</span><span class="p">.</span><span class="nx">setCoords</span><span class="p">(</span><span class="nx">coords</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">diagramModel</span><span class="p">.</span><span class="nx">addNode</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path fill="#fff" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path fill="#fff" d="M436 192H312c-13.3 0-24-10.7-24-24V44c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24V44c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300V344c0-13.3-10.7-24-24-24H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12H312c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>We want to believe the code is self explanatory, but i'll do a quick overview nevertheless.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">this</span><span class="p">.</span><span class="nx">diagramEngine</span><span class="p">.</span><span class="nx">registerDefaultFactories</span><span class="p">();</span>
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path fill="#fff" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path fill="#fff" d="M436 192H312c-13.3 0-24-10.7-24-24V44c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24V44c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300V344c0-13.3-10.7-24-24-24H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12H312c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>As the name states, registers all default factories provided out of the box by RxZu as a starting point, their source code can be found at <a href="https://github.com/Vonage/rxzu/tree/main/packages/angular/src/lib/defaults/components">https://github.com/Vonage/rxzu/tree/main/packages/angular/src/lib/defaults/components</a> and it is highly recommended to overview it when moving forward into fully customized entities.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="kd">const</span> <span class="nx">node1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DefaultNodeModel</span><span class="p">();</span>
+<span class="nx">node1</span><span class="p">.</span><span class="nx">setCoords</span><span class="p">({</span> <span class="na">x</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mi">300</span> <span class="p">});</span>
+<span class="nx">node1</span><span class="p">.</span><span class="nx">setDimensions</span><span class="p">(</span><span class="nx">nodesDefaultDimensions</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">outport1</span> <span class="o">=</span> <span class="nx">node1</span><span class="p">.</span><span class="nx">addOutPort</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">outport1</span><span class="dl">'</span> <span class="p">});</span>
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path fill="#fff" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="highlight-action highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path fill="#fff" d="M436 192H312c-13.3 0-24-10.7-24-24V44c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v84h84c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm-276-24V44c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v84H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24zm0 300V344c0-13.3-10.7-24-24-24H12c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-84h84c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12H312c-13.3 0-24 10.7-24 24v124c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Instantiating a node entity, which in turn generates the node component and exposes the model for us to manipulate it, update the coordinates, change the dimensions, create outport that is also an entity that instantiates behind the scenes and have lots of manipulations of their own.</p>
+
+<p>I'll stop here, there's plenty more to do and show using RxZu and this is probably the first of many posts about RxZu.</p>
+
+<p>You can find the source code at our <a href="https://github.com/Vonage/rxzu">GitHub</a>, and read the doc’s and stories at our <a href="https://vonage.github.io/rxzu">Storybook</a> which is full with some great and complex examples</p>
+
+<h4>
+  <a name="what-the-future-holds-for-us" href="#what-the-future-holds-for-us" class="anchor">
+  </a>
+  What the future holds for us?
+</h4>
+
+<p>One of the most important tasks we have ahead is getting better performance in the core.<br>
+Adding support for React, Vue, and more...<br>
+Smarter links with obstacles awareness.<br>
+Improving the documentation.</p>
+
+
+          </div>
+
+        </div>
+
+
+
+      </article>
+    </div>
+  </main>
+</div>
+
+
+<div class="mod-actions-menu print-hidden"></div>
+<div id="mod-actions-menu-btn-area" class="print-hidden"></div>
+<div data-testid="flag-user-modal-container" class="flag-user-modal-container hidden"></div>
+
+<div class="fullscreen-code js-fullscreen-code"></div>
+<script src="https://dev.to/packs/js/runtime~followButtons-dcfdd9725da59a1495e1.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/2-feac54b0d5293fd89992.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/followButtons-d2b8e231f0cb2b9978f6.chunk.js" defer="defer"></script>
+
+  <script>
+    var waitingOnPodcast = setInterval(function() {
+  if (typeof initializePodcastPlayback !== 'undefined') {
+    initializePodcastPlayback();
+    clearInterval(waitingOnPodcast);
+  }
+}, 1);
+
+    if (document.head.querySelector('meta[name="user-signed-in"][content="true"]')) {
+  function displayPollResults(json) {
+    var totalVotes = json.voting_data.votes_count;
+    json.voting_data.votes_distribution.forEach(function(point) {
+      var pollOptionItem = document.getElementById('poll_option_list_item_'+point[0]);
+      var optionText = document.getElementById('poll_option_label_'+point[0]).textContent;
+      if (json.user_vote_poll_option_id === point[0]) {
+        var votedClass = 'optionvotedfor'
+      } else {
+        var votedClass = 'optionnotvotedfor'
+      }
+      if (totalVotes === 0) {
+        var percent = 0;
+      } else {
+        var percent = (point[1]/totalVotes)*100;
+      }
+      var roundedPercent = Math.round( percent * 10 ) / 10
+      var percentFromRight = (100-roundedPercent)
+      var html = '<span><span class="ltag-votepercent ltag-'+votedClass+'" style="right:'+percentFromRight+'%"></span>        <span class="ltag-votepercenttext">'+optionText+' — '+roundedPercent+'%</span></span>';
+      pollOptionItem.innerHTML = html;
+      pollOptionItem.classList.add('already-voted')
+      document.getElementById('showmethemoney-'+json.poll_id).innerHTML = '<span class="ltag-voting-results-count">'+totalVotes+' total votes</span>';
+    })
+  }
+
+  var polls = document.getElementsByClassName('ltag-poll');
+  for (var i = 0; i < polls.length; i += 1) {
+    var poll = polls[i]
+    var pollId = poll.dataset.pollId
+    window.fetch('/poll_votes/'+pollId)
+    .then(function(response){
+      response.json().then(
+        function(json) {
+          if (json.voted) {
+            displayPollResults(json)
+          } else {
+            var els = document.getElementById('poll_'+json.poll_id).getElementsByClassName('ltag-polloption');
+
+            for (i = 0; i < els.length; i += 1) {
+              els[i].addEventListener('click', function(e) {
+                var tokenMeta = document.querySelector("meta[name='csrf-token']")
+                if (!tokenMeta) {
+                  alert('Whoops. There was an error. Your vote was not counted. Try refreshing the page.')
+                  return
+                }
+                var csrfToken = tokenMeta.getAttribute('content')
+                var optionId = e.target.dataset.optionId
+                window.fetch('/poll_votes', {
+                  method: 'POST',
+                  headers: {
+                    'X-CSRF-Token': csrfToken,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({poll_vote: { poll_option_id: optionId } }),
+                  credentials: 'same-origin',
+                }).then(function(response){
+                  response.json().then(function(j){displayPollResults(j)})
+                })
+              });
+            }
+
+            document.getElementById('showmethemoney-'+json.poll_id).addEventListener('click', function() {
+              pollId = this.dataset.pollId
+              window.fetch('/poll_skips', {
+                method: 'POST',
+                headers: {
+                  'X-CSRF-Token': csrfToken,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({poll_skip: {poll_id: pollId }}),
+                credentials: 'same-origin',
+              }).then(function(response){
+                response.json().then(function(j){displayPollResults(j)})
+              })
+            });
+          }
+        }
+      )
+    })
+  }
+} else {
+    var els = document.getElementsByClassName('ltag-poll')
+    for (i = 0; i < els.length; i += 1) {
+      els[i].onclick = function(e) {
+        if (typeof showLoginModal !== "undefined") {
+          showLoginModal();
+        }
+      }
+    }
+}
+
+    function activateRunkitTags() {
+  if (!areAnyRunkitTagsPresent())
+    return
+
+  var checkRunkit = setInterval(function() {
+    try {
+      dynamicallyLoadRunkitLibrary()
+
+      if (typeof(RunKit) === 'undefined') {
+        return
+      }
+
+      replaceTagContentsWithRunkitWidget()
+      clearInterval(checkRunkit);
+    } catch(e) {
+      console.error(e);
+      clearInterval(checkRunkit);
+    }
+  }, 200);
+}
+
+function isRunkitTagAlreadyActive(runkitTag) {
+  return runkitTag.querySelector("iframe") !== null;
+};
+
+function areAnyRunkitTagsPresent() {
+  var presentRunkitTags = document.getElementsByClassName("runkit-element");
+
+  return presentRunkitTags.length > 0
+}
+
+function replaceTagContentsWithRunkitWidget() {
+  var targets = document.getElementsByClassName("runkit-element");
+  for (var i = 0; i < targets.length; i++) {
+    if (isRunkitTagAlreadyActive(targets[i])) {
+      continue;
+    }
+
+    var wrapperContent = targets[i].textContent;
+    if (/^(<iframe src)/.test(wrapperContent) === false) {
+      if (targets[i].children.length > 0) {
+        var preamble = targets[i].children[0].textContent;
+        var content = targets[i].children[1].textContent;
+        targets[i].innerHTML = "";
+        var notebook = RunKit.createNotebook({
+          element: targets[i],
+          source: content,
+          preamble: preamble
+        });
+      }
+    }
+  }
+};
+
+function dynamicallyLoadRunkitLibrary() {
+  if (typeof(dynamicallyLoadScript) === "undefined")
+    return
+
+  dynamicallyLoadScript("//embed.runkit.com")
+}
+
+activateRunkitTags();
+
+    var videoPreviews = document.getElementsByClassName("ltag__twitter-tweet__media__video-wrapper");
+[].forEach.call(videoPreviews, function(el) {
+  el.onclick = function(e) {
+    var divHeight = el.offsetHeight;
+    el.style.maxHeight = divHeight + "px";
+    el.getElementsByClassName("ltag__twitter-tweet__media--video-preview")[0].style.display = "none";
+    el.getElementsByClassName("ltag__twitter-tweet__video")[0].style.display = "block";
+    el.getElementsByTagName("video")[0].play();
+  }
+});
+var tweets = document.getElementsByClassName("ltag__twitter-tweet__main");
+[].forEach.call(tweets, function(tweet){
+  tweet.onclick = function(e) {
+    if (e.target.nodeName == "A" || e.target.parentElement.nodeName == "A") {
+      return;
+    }
+    window.open(tweet.dataset.url,"_blank");
+  }
+});
+
+    var subscribeBtn = document.getElementById('subscribe-btn');
+
+function isUserSignedIn() {
+  return document.head.querySelector('meta[name="user-signed-in"][content="true"]') !== null;
+}
+
+// Hiding/showing elements
+// If clearSubscribeButton is false, we will not clear out the subscription-signed-in area,
+// which will allow users to re-submit their subscription if they see any error messages.
+// ***************************************
+function clearSubscriptionArea({ clearSubscribeButton = true } = {}) {
+  if (!clearSubscribeButton) {
+    // Allow users to try submitting again if they see an error.
+    hideSubscriptionSignedIn();
+  }
+
+  const subscriptionSignedOut = document.getElementById('subscription-signed-out');
+  if (subscriptionSignedOut) {
+    subscriptionSignedOut.classList.add("hidden");
+  }
+
+  hideResponseMessage();
+
+  const subscriberAppleAuth = document.getElementById('subscriber-apple-auth');
+  if (subscriberAppleAuth) {
+    subscriberAppleAuth.classList.add("hidden");
+  }
+
+  hideConfirmationModal();
+}
+
+// Hides the response message (which displays success/error messages) if it exists.
+// ***************************************
+function hideResponseMessage() {
+  const responseMessage = document.getElementById('response-message');
+  if (responseMessage) {
+    responseMessage.classList.add("hidden");
+  }
+}
+
+function showSignedIn() {
+  clearSubscriptionArea();
+  const subscriptionSignedIn = document.getElementById('subscription-signed-in');
+  if (subscriptionSignedIn) {
+    subscriptionSignedIn.classList.remove("hidden");
+  }
+
+  const profileImages = document.getElementById('profile-images');
+  if (profileImages) {
+    profileImages.classList.remove("signed-out");
+    profileImages.classList.add("signed-in");
+  }
+}
+
+function showSignedOut() {
+  clearSubscriptionArea();
+
+  const subscriptionSignedOut = document.getElementById('subscription-signed-out');
+  if (subscriptionSignedOut) {
+    subscriptionSignedOut.classList.remove("hidden");
+  }
+
+  const profileImages = document.getElementById('profile-images');
+  if (profileImages) {
+    profileImages.classList.remove("signed-in");
+    profileImages.classList.add("signed-out");
+  }
+
+  const subscriberProfileImage = document.getElementsByClassName('ltag__user-subscription-tag__subscriber-profile-image')[0];
+  if (subscriberProfileImage) {
+    subscriberProfileImage.classList.add("hidden");
+  }
+}
+
+function showResponseMessage(noticeType, msg) {
+  clearSubscriptionArea(clearSubscribeButton = false);
+
+  const responseMessage = document.getElementById('response-message');
+  if (responseMessage) {
+    responseMessage.classList.remove("hidden");
+    responseMessage.classList.add(`crayons-notice--${noticeType}`);
+    responseMessage.textContent = msg;
+
+    if (noticeType === 'danger') {
+      // Allow users to try resubscribing if they see an error message.
+      subscribeBtn.textContent = "Submit";
+      subscribeBtn.disabled = false;
+    }
+  }
+}
+
+function showAppleAuthMessage() {
+  clearSubscriptionArea();
+  const subscriber = userData();
+  if (subscriber) {
+    updateProfileImages('.ltag__user-subscription-tag__subscriber-profile-image', subscriber);
+  }
+
+  const subscriberAppleAuth = document.getElementById('subscriber-apple-auth');
+  if (subscriberAppleAuth) {
+    subscriberAppleAuth.classList.remove("hidden");
+  }
+}
+
+function showSubscribed() {
+  hideSubscriptionSignedIn();
+  updateSubscriberData();
+  const authorUsername = document.getElementById('user-subscription-tag')?.dataset.authorUsername;
+  const alreadySubscribedMsg = `You are already subscribed.`;
+  showResponseMessage('success', alreadySubscribedMsg);
+}
+
+function showConfirmationModal() {
+  const confirmationModal = document.getElementById('user-subscription-confirmation-modal');
+  if (confirmationModal) {
+    confirmationModal.classList.remove("hidden");
+  }
+}
+
+function hideConfirmationModal() {
+  const confirmationModal = document.getElementById('user-subscription-confirmation-modal');
+  if (confirmationModal) {
+    confirmationModal.classList.add("hidden");
+  }
+}
+
+// Updating DOM elements
+// ***************************************
+function updateSubscriberData() {
+  const subscriber = userData();
+  if (subscriber.email) {
+    updateElementsTextContent('.ltag__user-subscription-tag__subscriber-email', subscriber.email);
+  }
+
+  updateProfileImages('.ltag__user-subscription-tag__subscriber-profile-image', subscriber);
+}
+
+function updateElementsTextContent(identifier, value) {
+  const elements = document.querySelectorAll(identifier);
+
+  elements.forEach(function(element) {
+    element.textContent = value;
+  });
+}
+
+function updateProfileImages(identifier, subscriber) {
+  const profileImages = document.querySelectorAll(`img${identifier}`);
+
+  profileImages.forEach(function(profileImage) {
+    profileImage.src = subscriber.profile_image_90;
+    profileImage.alt = `${subscriber.username} profile image`;
+  });
+}
+
+function hideSubscriptionSignedIn() {
+  const subscriptionSignedIn = document.getElementById('subscription-signed-in');
+  if (subscriptionSignedIn) {
+    subscriptionSignedIn.classList.add("hidden");
+  }
+}
+
+// Adding event listeners for 'click'
+// ***************************************
+function addSignInClickHandler() {
+  const signInBtn = document.getElementById('sign-in-btn');
+  if (signInBtn) {
+    signInBtn.addEventListener('click', function(e) {
+      if (typeof showLoginModal !== 'undefined') {
+        showLoginModal();
+      }
+    });
+  }
+}
+
+function addConfirmationModalClickHandlers() {
+  if (subscribeBtn) {
+    subscribeBtn.addEventListener('click', function(e) {
+      showConfirmationModal();
+    });
+  }
+
+  const cancelBtn = document.getElementById('cancel-btn');
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', function(e) {
+      hideConfirmationModal();
+    });
+  }
+
+  const closeConfirmationModal = document.getElementById('close-confirmation-modal');
+  if (closeConfirmationModal) {
+    closeConfirmationModal.addEventListener('click', function(e) {
+      hideConfirmationModal();
+    });
+  }
+
+  const confirmationModal = document.getElementById('confirmation-btn')
+  if (confirmationModal) {
+    confirmationModal.addEventListener('click', function(e) {
+      handleSubscription();
+    });
+  }
+}
+
+// API calls
+// ***************************************
+function submitSubscription() {
+  // Hide any error messages previously rendered.
+  hideResponseMessage();
+
+  subscribeBtn.textContent = "Submitting...";
+  subscribeBtn.disabled = true;
+
+  const headers = {
+    Accept: 'application/json',
+    'X-CSRF-Token': window.csrfToken,
+    'Content-Type': 'application/json',
+  }
+
+  const articleBody = document.getElementById('article-body');
+  const articleId = (articleBody ? articleBody.dataset.articleId : null);
+
+  const subscriber = userData();
+  const body = JSON.stringify(
+      {
+        user_subscription: {
+          source_type: 'Article',
+          source_id: articleId,
+          subscriber_email: subscriber.email
+        }
+      }
+    )
+
+  return fetch('/user_subscriptions', {
+    method: 'POST',
+    headers: headers,
+    credentials: 'same-origin',
+    body: body,
+  }).then(function(response) {
+    return response.json();
+  });
+}
+
+function fetchIsSubscribed() {
+  const articleBody = document.getElementById('article-body');
+  const articleId = (articleBody ? articleBody.dataset.articleId : null);
+
+  const params = new URLSearchParams({
+    source_type: 'Article',
+    source_id: articleId
+  }).toString();
+
+  const headers = {
+    Accept: 'application/json',
+    'X-CSRF-Token': window.csrfToken,
+    'Content-Type': 'application/json',
+  }
+
+  return fetch(`/user_subscriptions/subscribed?${params}`, {
+    method: 'GET',
+    headers: headers,
+    credentials: 'same-origin',
+  }).then(function(response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      console.error(`Base data error: ${response.status} - ${response.statusText}`);
+    }
+  });
+}
+
+// Handle API responses
+// ***************************************
+function handleSubscription() {
+  hideConfirmationModal(); // Close the modal once the user has confirmed.
+
+  submitSubscription().then(function(response) {
+    if (response.success) {
+      const userSubscriptionTag = document.getElementById('user-subscription-tag');
+      const authorUsername = (userSubscriptionTag ? userSubscriptionTag.dataset.authorUsername : null);
+      const successMsg = `You are now subscribed and may receive emails from ${authorUsername}`;
+      showResponseMessage('success', successMsg);
+      hideSubscriptionSignedIn();
+    } else {
+      showResponseMessage('danger', response.error);
+    }
+  });
+}
+
+function checkIfSubscribed() {
+  fetchIsSubscribed().then(function(response) {
+    const subscriber = userData();
+    const isSubscriberAuthedWithApple = (subscriber.email ? subscriber.email.endsWith('@privaterelay.appleid.com') : false);
+
+    if (response.is_subscribed) {
+      showSubscribed();
+    } else if (isSubscriberAuthedWithApple) {
+      showAppleAuthMessage();
+    } else {
+      updateSubscriberData();
+    }
+  });
+}
+
+// We load this JS on every Article. This is to only run it on Articles
+// where the UserSubscription liquid tag is present
+if (document.getElementById('user-subscription-tag')) {
+  // The markup defaults to signed out UX
+  if (isUserSignedIn()) {
+    showSignedIn();
+    addConfirmationModalClickHandlers();
+
+    // We need access to some DOM elements (i.e. csrf token, article id, userData, etc.)
+    document.addEventListener('DOMContentLoaded', function() {
+      checkIfSubscribed();
+    });
+  } else {
+    showSignedOut();
+    addSignInClickHandler();
+  }
+}
+
+  </script>
+
+    <div id="runtime-banner-container"></div>
+  </div>
+</div>
+
+<div id="snack-zone"></div>
+
+    <div id="global-signup-modal" class="authentication-modal hidden">
+  <div class="authentication-modal__container">
+    <figure class="authentication-modal__image-container">
+      <img class="authentication-modal__image" src="https://res.cloudinary.com/practicaldev/image/fetch/s--pcSkTMZL--/c_limit,f_auto,fl_progressive,q_80,w_190/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png"
+        alt="DEV Community" loading="lazy" />
+    </figure>
+    <div class="authentication-modal__content">
+      <p class="authentication-modal__description">
+          We&#39;re a place where coders share, stay up-to-date and grow their careers.
+      </p>
+    </div>
+    <div class="authentication-modal__actions">
+      <a href="/enter" class="crayons-btn" aria-label="Log in" data-no-instant>
+        Log in
+      </a>
+      <a href="/enter?state=new-user" class="crayons-btn crayons-btn--ghost-brand" aria-label="Create new account" data-no-instant>
+        Create account
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="https://dev.to/packs/js/runtime~signupModalShortcuts-bf290c013924ff5134ac.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/signupModalShortcuts-8ec503d9a2ff8730bc02.chunk.js" defer="defer"></script>
+
+  <div id="i18n-translations" data-translations="{&quot;en&quot;:{&quot;core&quot;:{&quot;add_comment&quot;:&quot;Add comment&quot;,&quot;analytics&quot;:&quot;Analytics&quot;,&quot;comment&quot;:&quot;Comment&quot;,&quot;comments&quot;:&quot;Comments&quot;,&quot;community_name_is_great&quot;:&quot;%{community_name} is great!&quot;,&quot;copy_link&quot;:&quot;Copy link&quot;,&quot;create_account&quot;:&quot;Create account&quot;,&quot;dashboard&quot;:&quot;Dashboard&quot;,&quot;edit_profile&quot;:&quot;Edit profile&quot;,&quot;follow&quot;:&quot;Follow&quot;,&quot;follow_back&quot;:&quot;Follow back&quot;,&quot;follower&quot;:&quot;Follower&quot;,&quot;followers&quot;:&quot;Followers&quot;,&quot;following&quot;:&quot;Following&quot;,&quot;joined&quot;:&quot;Joined&quot;,&quot;joined_on&quot;:&quot;Joined on&quot;,&quot;like&quot;:&quot;Like&quot;,&quot;listings&quot;:&quot;Listings&quot;,&quot;loading&quot;:&quot;loading...&quot;,&quot;location&quot;:&quot;Location&quot;,&quot;log_in&quot;:&quot;Log in&quot;,&quot;more_from&quot;:&quot;More from&quot;,&quot;pinned&quot;:&quot;Pinned&quot;,&quot;post&quot;:&quot;Post&quot;,&quot;posts&quot;:&quot;Posts&quot;,&quot;reaction&quot;:&quot;Reaction&quot;,&quot;reaction_pluralized&quot;:{&quot;one&quot;:&quot;reaction&quot;,&quot;other&quot;:&quot;reactions&quot;},&quot;reactions&quot;:{&quot;heart&quot;:&quot;Heart&quot;,&quot;save&quot;:&quot;Save&quot;,&quot;unicorn&quot;:&quot;Unicorn&quot;},&quot;reply&quot;:&quot;Reply&quot;,&quot;report_abuse&quot;:&quot;Report abuse&quot;,&quot;search&quot;:&quot;Search&quot;,&quot;series&quot;:&quot;Series&quot;,&quot;settings&quot;:&quot;Settings&quot;,&quot;trending_on&quot;:&quot;Trending on&quot;}}}"></div>
+  </body>
+  </html>
