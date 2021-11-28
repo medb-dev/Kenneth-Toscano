@@ -557,7 +557,7 @@
 /* line 1, ../scss/components/modules/_overlay.scss */
 #lightcase-overlay {
   display: none;
-  width: 100%;
+  width: 100vw;
   min-height: 100%;
   position: fixed;
   z-index: 2000;

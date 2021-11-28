@@ -190,7 +190,7 @@
 		margin-bottom: 40px;
 	}
 	.about .about_skills .progress{
-		width: 460px;
+		width: 85%;
 	}
 	.resume .experiences{
 		margin-bottom: 50px !important;
@@ -442,7 +442,7 @@
 		width: 100%;
 	}
 	.about .about_skills .progress{
-		width: 100%;
+		width: 85%;
 		margin: 0;
 	}
 	.blog .content{
